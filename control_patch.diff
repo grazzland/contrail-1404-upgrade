@@ -1,0 +1,11 @@
+--- ../tools/packages/debian/contrail/debian/control	2014-08-22 11:13:31.740632285 +0200
++++ ../tools/packages/debian/contrail/debian/control	2014-08-21 13:32:35.063914913 +0200
+@@ -33,7 +33,7 @@
+ Architecture: any
+ Depends: adduser,
+          contrail-lib (= ${binary:Version}),
+-         libprotobuf7,
++         libprotobuf8,
+          python-bottle (>= 0.11.6),
+          python-contrail (= ${source:Version}),
+          python-pkg-resources,

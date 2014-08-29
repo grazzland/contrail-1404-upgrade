@@ -1,0 +1,44 @@
+--- ../tools/packaging/common/debian/Makefile	2014-08-22 11:13:31.788632283 +0200
++++ ../tools/packaging/common/debian/Makefile	2014-08-21 10:30:07.716375297 +0200
+@@ -56,12 +56,12 @@
+ 	contrail-test-deb \
+ 	euca2ools-deb \
+ 	python-boto-deb \
+-	libvirt-deb \
+ 	contrail-openstack-dashboard-deb \
+ 	contrail-ostack-dashboard-deb \
+ 	contrail-server-manager-deb \
+ 	contrail-server-manager-client-deb \
+ 	neutron-plugin-contrail-deb
++	#libvirt-deb \
+ 
+ all: ${PACKAGES}
+ 	@echo "Build complete"
+@@ -133,6 +133,7 @@
+ 
+ contrail-fabric-utils-deb:
+ 	$(eval BUILDDIR=${SB_TOP}/build/third_party/contrail-fabric-utils)
++	rm -rf ${BUILDDIR}
+ 	cp -R ${SB_TOP}/third_party/fabric-utils ${BUILDDIR}
+ 	cp -R contrail-fabric-utils/debian ${BUILDDIR}/debian
+ 	(cd ${BUILDDIR}; fakeroot debian/rules clean)
+@@ -226,15 +227,10 @@
+ 	$(eval LIBDIR=${SB_TOP}/third_party/libvirt)
+ 	$(eval BUILDDIR=${SB_TOP}/build/debian)
+ 	if test -d ${LIBDIR}; then \
+-		rm -rf ${LIBDIR}/libvirt-0.9.8; \
+-		(cd ${LIBDIR}; dpkg-source -x libvirt_0.9.8-2ubuntu17.17.dsc); \
+-		(cd ${LIBDIR}; patch -p0 -i libvirt.ubuntu.patch); \
+-		(cd ${LIBDIR}; patch -p0 -i libvirt.ubuntu.test-disable.patch); \
+-		(cd ${LIBDIR}; patch -p0 -i libvirt.ubuntu.gnulib_test_disable.patch); \
+-		(cd ${LIBDIR}; patch -p0 -i libvirt_0.9.8_17.17.ubuntu.version.patch); \
+-		(cd ${LIBDIR}/libvirt-0.9.8; dpkg-buildpackage -b -uc); \
+-		(cd ${LIBDIR}; mv libvirt0_0.9.8-2ubuntu17.17_amd64.deb ${BUILDDIR}); \
+-		(cd ${LIBDIR}; mv libvirt-bin_0.9.8-2ubuntu17.17_amd64.deb ${BUILDDIR}); \
++		rm -rf ${LIBDIR}/libvirt-1.2.2; \
++		(cd ${LIBDIR}/libvirt-1.2.2; dpkg-buildpackage -b -uc); \
++		(cd ${LIBDIR}; mv libvirt0_1.2.2-0ubuntu13.1.2_amd64.deb ${BUILDDIR}); \
++		(cd ${LIBDIR}; mv libvirt-bin_1.2.2-0ubuntu13.1.2_amd64.deb ${BUILDDIR}); \
+ 		(cd ${LIBDIR}; mv python-libvirt_0.9.8-2ubuntu17.17_amd64.deb ${BUILDDIR}); \
+ 		(cd ${LIBDIR}; rm *.deb); \
+ 	fi

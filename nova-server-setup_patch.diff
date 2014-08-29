@@ -1,0 +1,11 @@
+--- ../tools/provisioning/contrail_setup_utils/nova-server-setup.sh	2014-08-22 11:13:31.924632277 +0200
++++ ../tools/provisioning/contrail_setup_utils/nova-server-setup.sh	2014-08-21 12:12:38.468116631 +0200
+@@ -135,7 +135,7 @@
+ EOF
+ 
+ # must set SQL connection before running nova-manage
+-openstack-config --set /etc/nova/nova.conf DEFAULT sql_connection mysql://nova:nova@127.0.0.1/nova
++openstack-config --set /etc/nova/nova.conf DEFAULT sql_connection mysql://nova:nova@$CONTROLLER/nova
+ openstack-config --set /etc/nova/nova.conf DEFAULT libvirt_nonblocking True 
+ openstack-config --set /etc/nova/nova.conf DEFAULT libvirt_inject_partition -1
+ openstack-config --set /etc/nova/nova.conf DEFAULT connection_type libvirt

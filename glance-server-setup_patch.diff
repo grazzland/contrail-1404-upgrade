@@ -1,0 +1,22 @@
+--- ../tools/provisioning/contrail_setup_utils/glance-server-setup.sh	2014-08-22 11:13:31.924632277 +0200
++++ ../tools/provisioning/contrail_setup_utils/glance-server-setup.sh	2014-08-21 12:14:47.820111191 +0200
+@@ -95,7 +95,7 @@
+ 
+ for cfg in api registry; do
+     if [ $is_ubuntu -eq 1 ] ; then
+-        openstack-config --set /etc/glance/glance-$cfg.conf DEFAULT sql_connection sqlite:////var/lib/glance/glance.sqlite
++        openstack-config --set /etc/glance/glance-$cfg.conf database sql_connection mysql://glance:glance@$CONTROLLER:3306/glance
+     fi
+     if [ "$INTERNAL_VIP" != "none" ]; then
+         openstack-config --set /etc/glance/glance-$cfg.conf DEFAULT sql_connection mysql://glance:glance@$CONTROLLER:3306/glance
+@@ -105,7 +105,10 @@
+ for APP in glance; do
+     # Required only in first openstack node, as the mysql db is replicated using galera.
+     if [ "$OPENSTACK_INDEX" -eq 1 ]; then
++	openstack-db --drop --service $APP --rootpw "$MYSQL_TOKEN"
+         openstack-db -y --init --service $APP --rootpw "$MYSQL_TOKEN"
++        mysql -u root -p$MYSQL_TOKEN $APP -e "alter table migrate_version convert to character set utf8 collate utf8_unicode_ci"
++        mysql -u root -p$MYSQL_TOKEN -e "flush privileges"
+         glance-manage db_sync
+         if [ $is_ubuntu -eq 1 ] ; then
+             chown glance /var/lib/glance/glance.sqlite

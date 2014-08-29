@@ -1,0 +1,26 @@
+--- ../vrouter/linux/vr_host_interface.c	2014-08-22 11:13:32.044632272 +0200
++++ ../vrouter/linux/vr_host_interface.c	2014-08-20 10:51:10.951955674 +0200
+@@ -105,8 +105,10 @@
+            (RHEL_MAJOR == 6) && (RHEL_MINOR == 4)
+     skb->rxhash = val;
+ #endif
+-#else
++#elif (LINUX_VERSION_CODE < KERNEL_VERSION(3,14,00))
+     skb->rxhash = val;
++#else
++    skb_set_hash(skb, val, PKT_HASH_TYPE_L3);
+ #endif
+ }
+ 
+@@ -522,7 +524,11 @@
+     num_cpus = cpumask_weight(&noht_cpumask);
+ 
+     if (num_cpus) {
++#if (LINUX_VERSION_CODE < KERNEL_VERSION(3,13,00))
+         rxhash = skb_get_rxhash(skb);
++#else
++        rxhash = skb_get_hash(skb);
++#endif
+ #if (LINUX_VERSION_CODE <= KERNEL_VERSION(2,6,32)) 
+         next_cpu = ((u32)rxhash * num_cpus) >> 16;
+ #else

@@ -1,0 +1,11 @@
+--- ../tools/packaging/build/setup_ubuntu.sh	2014-08-22 11:13:31.780632283 +0200
++++ ../tools/packaging/build/setup_ubuntu.sh	2014-08-21 11:05:52.440285102 +0200
+@@ -8,7 +8,7 @@
+ mkdir -p /opt/contrail/bin
+ 
+ cd /opt/contrail/contrail_install_repo
+-DEBIAN_FRONTEND=noninteractive dpkg -i binutils_2.22-6ubuntu1.1_amd64.deb dpkg-dev_1.16.1.2ubuntu7.2_all.deb libdpkg-perl_1.16.1.2ubuntu7.2_all.deb make_3.81-8.1ubuntu1.1_amd64.deb patch_2.6.1-3_amd64.deb python-pip_1.0-1build1_all.deb python-pkg-resources_0.6.24-1ubuntu1_all.deb python-setuptools_0.6.24-1ubuntu1_all.deb
++DEBIAN_FRONTEND=noninteractive dpkg -i binutils_2.24-5ubuntu3_amd64.deb dpkg-dev_1.17.5ubuntu5.3_all.deb libdpkg-perl_1.17.5ubuntu5.3_all.deb make_3.81-8.2ubuntu3_amd64.deb patch_2.7.1-4ubuntu1_amd64.deb python-colorama_0.2.5-0.1ubuntu1_all.deb python-distlib_0.1.8-1_all.deb python-html5lib_0.999-2_all.deb python-pip_1.5.4-1_all.deb python-pkg-resources_3.3-1ubuntu1_all.deb python-setuptools_3.3-1ubuntu1_all.deb
+ 
+ cd /etc/apt/
+ # create repo with only local packages

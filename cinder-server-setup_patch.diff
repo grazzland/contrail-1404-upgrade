@@ -1,0 +1,10 @@
+--- ../tools/provisioning/contrail_setup_utils/cinder-server-setup.sh	2014-08-22 11:13:31.920632277 +0200
++++ ../tools/provisioning/contrail_setup_utils/cinder-server-setup.sh	2014-08-21 11:12:23.000268677 +0200
+@@ -108,6 +108,7 @@
+     openstack-config --set /etc/$svc/$svc.conf keystone_authtoken admin_user $svc
+     openstack-config --set /etc/$svc/$svc.conf keystone_authtoken admin_password $SERVICE_TOKEN
+     openstack-config --set /etc/$svc/$svc.conf keystone_authtoken auth_protocol $AUTH_PROTOCOL
++    openstack-config --set /etc/$svc/$svc.conf database sql_connection mysql://cinder:cinder@$CONTROLLER:3306/cinder
+     if [ "$INTERNAL_VIP" != "none" ]; then
+         openstack-config --set /etc/$svc/$svc.conf keystone_authtoken auth_host $INTERNAL_VIP
+         openstack-config --set /etc/$svc/$svc.conf keystone_authtoken auth_port 5000

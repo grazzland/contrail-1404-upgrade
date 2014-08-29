@@ -1,0 +1,10 @@
+--- ../tools/provisioning/contrail_setup_utils/keystone-server-setup.sh	2014-08-22 11:13:31.924632277 +0200
++++ ../tools/provisioning/contrail_setup_utils/keystone-server-setup.sh	2014-08-21 14:23:19.143786896 +0200
+@@ -143,6 +143,7 @@
+         openstack-db -y --init --service $APP --rootpw "$MYSQL_TOKEN"
+     fi
+ done
++mysql -uroot -p$MYSQL_TOKEN -e "DELETE FROM mysql.user WHERE user=''"
+ 
+ if [ "$INTERNAL_VIP" != "none" ]; then
+     # Required only in first openstack node, as the mysql db is replicated using galera.

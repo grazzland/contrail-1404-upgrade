@@ -1,0 +1,10 @@
+--- ../tools/provisioning/contrail_setup_utils/setup.py.orig	2014-08-27 12:59:58.102196202 +0200
++++ ../tools/provisioning/contrail_setup_utils/setup.py	2014-08-27 13:00:37.538194543 +0200
+@@ -852,6 +852,7 @@
+             elif pdist in ['centos', 'redhat']:
+                 mysql_conf = '/etc/my.cnf'
+             local('sed -i -e "s/bind-address/#bind-address/" %s' % mysql_conf)
++            local('sed -i -e "s/\[mysqld\]/\[mysqld\]\\ncollation-server = utf8_general_ci\\ninit-connect=\'SET NAMES utf8\'\\ncharacter-set-server = utf8/" %s' % mysql_conf)
+             self.service_token = self._args.service_token
+             if not self.service_token:
+                 local("sudo ./contrail_setup_utils/setup-service-token.sh")

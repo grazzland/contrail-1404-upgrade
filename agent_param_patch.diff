@@ -1,0 +1,26 @@
+--- ../controller/src/vnsw/agent/cmn/agent_param.cc	2014-08-22 11:13:29.200632391 +0200
++++ ../controller/src/vnsw/agent/cmn/agent_param.cc	2014-08-20 14:48:55.239355798 +0200
+@@ -386,9 +386,11 @@
+     } else {
+         log_local_ = false;
+     }
++/*
+     if (opt_uint = tree_.get_optional<unsigned int>("DEFAULT.log_local")) {
+         debug_logging = opt_uint.get();
+     }
++*/
+     if (debug_logging) {
+         debug_ = true;
+     } else {
+@@ -401,9 +403,11 @@
+     }
+ 
+     unsigned int log_flow = 0;
++/*
+     if (opt_uint = tree_.get_optional<unsigned int>("DEFAULT.log_flow")) {
+         log_flow = opt_uint.get();
+     }
++*/
+     if (log_flow) {
+         log_flow_ = true;
+     } else {
